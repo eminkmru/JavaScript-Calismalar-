@@ -1,8 +1,8 @@
 const form = document.querySelector("#todoAddForm");
 const addInput = document.querySelector("#todoName");
 const todoList = document.querySelector(".list-group");
-const firstCardBody = document.querySelectorAll(".list-group")[0];
-const secondCardBody = document.querySelectorAll(".list-group")[1];
+const firstCardBody = document.querySelectorAll(".card-body")[0];
+const secondCardBody = document.querySelectorAll(".card-body")[1];
 const clearButton = document.querySelector("#clearButton");
 let todos =[];
 runEvents();
@@ -14,10 +14,11 @@ function runEvents(){
 function addTodo(e){
     const inputText = addInput.value.trim();
     if(inputText == null || inputText ==""){
-        alert("Lütfen boş bırakmayınız");
+        showAlert("warning","Lütfen Boş Bırakmayınız.")
     }else{
         addTodoToUI(inputText);
         addTodoToStorage(inputText);
+        showAlert("success","Todo Eklendi");
     }
     e.preventDefault();
 }
@@ -57,4 +58,17 @@ function checkTodosFromStorage(){
         todos = JSON.parse(localStorage.getItem("todos"));
     }
 
+}
+
+
+function showAlert(type,message){
+    const div = document.createElement("div");
+    div.className=`alert alert-${type}`;
+    div.innerHTML = message;
+
+    firstCardBody.appendChild(div);
+
+    setTimeout(function(){
+        div.remove();
+    },2500)
 }
