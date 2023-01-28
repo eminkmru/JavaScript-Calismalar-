@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      #slaytalani {
+        width: 1000px;
+        height: 550px;
+        margin: 50px auto;
+        position: relative;
+        overflow: hidden;
+        border-radius: 5px;
+      }
+      #resim {
+        position: relative;
+      }
+      .solalani {
+        width: 70px;
+        height: 550px;
+        position: absolute;
+        text-align: left;
+        left: 0;
+        top: 0;
+      }
+      .sagalani {
+        width: 70px;
+        height: 550px;
+        position: absolute;
+        text-align: right;
+        right: 0;
+        top: 0;
+      }
+      .sol {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 45%;
+        left: 25px;
+        opacity: 0;
+        transition: all 0.5s ease-in-out 0s;
+      }
+
+      .sag {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 45%;
+        right: 25px;
+        opacity: 0;
+        transition: all 0.5s ease-in-out 0s;
+      }
+      .solalani:hover .sol {
+        opacity: 0.5;
+      }
+      .sagalani:hover .sag {
+        opacity: 0.5;
+      }
+    </style>
+    <title>slider</title>
+  </head>
+  <body onload="calistir()">
+    <div id="slaytalani">
+      <img
+        id="resim"
+        src="./slider1.jpg"
+        width="1000"
+        height="550"
+        style="border: none"
+        alt=""
+      />
+      <div class="solalani">
+        <img
+          src="./solok.png"
+          width="50"
+          height="50"
+          class="sol"
+          style="border: none"
+          alt=""
+          onclick="resimdegistir(-1)"
+        />
+      </div>
+      <div class="sagalani">
+        <img
+          src="./sagok.png"
+          width="50"
+          height="50"
+          class="sag"
+          style="border: none"
+          alt=""
+          onclick="resimdegistir(1)"
+        />
+      </div>
+    </div>
+
+    <script>
+      debugger;
+      var resimSirasi = 1;
+      var toplamresim = 5;
+      function resimdegistir(deger) {
+        var resim = document.getElementById("resim");
+        resimSirasi = resimSirasi + deger;
+        if (resimSirasi > toplamresim) {
+          resimSirasi = 1;
+        }
+        if (resimSirasi < 1) {
+          resimSirasi = toplamresim;
+        }
+        resim.src = "./slider" + resimSirasi + ".jpg";
+        clearInterval(zaman);
+        zaman = window.setInterval(function calistir() {
+          var resim = document.getElementById("resim");
+          resimSirasi = resimSirasi + 1;
+          if (resimSirasi > toplamresim) {
+            resimSirasi = 1;
+          }
+          if (resimSirasi < 1) {
+            resimSirasi = toplamresim;
+          }
+          resim.src = "./slider" + resimSirasi + ".jpg";
+        }, 5000);
+      }
+      var zaman = window.setInterval(function calistir() {
+        var resim = document.getElementById("resim");
+        resimSirasi = resimSirasi + 1;
+        if (resimSirasi > toplamresim) {
+          resimSirasi = 1;
+        }
+        if (resimSirasi < 1) {
+          resimSirasi = toplamresim;
+        }
+        resim.src = "slider" + resimSirasi + ".jpg";
+      }, 2000);
+    </script>
+  </body>
+</html>
