@@ -10,6 +10,7 @@ runEvents();
 function runEvents(){
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",pageLoaded)
+    secondCardBody.addEventListener("click",removeTodoToUI);
 }
 
 function pageLoaded(){
@@ -17,6 +18,27 @@ function pageLoaded(){
     todos.forEach(function(todo){
         addTodoToUI(todo);
     })
+}
+
+function removeTodoToUI(e){
+    if(e.target.className == "fa fa-remove"){
+        //ekrandan silme
+        const todo = e.target.parentElement.parentElement;
+        todo.remove(); 
+        //storagede silme
+        removeTodoToStorage(todo.textContent);
+        showAlert("success","Todo Başarıyla Silindi.")
+    }
+}
+
+function removeTodoToStorage(removeTodo){
+    checkTodosFromStorage();
+    todos.forEach(function(todo,index){
+        if(removeTodo === todo){
+            todos.splice(index,1);
+        }
+    });
+    localStorage.setItem("todos",JSON.stringify(todos));
 }
 
 function addTodo(e){
