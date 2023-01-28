@@ -11,6 +11,7 @@ function runEvents(){
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",pageLoaded)
     secondCardBody.addEventListener("click",removeTodoToUI);
+    clearButton.addEventListener("click",allTodosEverywhere);
 }
 
 function pageLoaded(){
@@ -34,11 +35,29 @@ function removeTodoToUI(e){
 function removeTodoToStorage(removeTodo){
     checkTodosFromStorage();
     todos.forEach(function(todo,index){
-        if(removeTodo === todo){
+        if(removeTodo.textContent === todo){
             todos.splice(index,1);
         }
     });
     localStorage.setItem("todos",JSON.stringify(todos));
+}
+function allTodosEverywhere(){
+    const allLi = document.querySelectorAll(".list-group-item");
+    if(allLi.length>0){
+        //ekrandan silme
+        allLi.forEach(function(todo){
+            removeTodoToStorage(todo);     //todo BENİM YAPTIĞIM
+            todo.remove();
+        });
+
+        //            Storageden silme
+        // todos=[];                                                //Hocanın yaptığı
+        // localStorage.setItem("todos",JSON.stringify(todos));
+        showAlert("success","Başarılı bir şekilde silindi.");
+    }else{
+        showAlert("warning","Silmek için en az bir todo olmalıdır.");
+    }
+    console.log(allLi);
 }
 
 function addTodo(e){
